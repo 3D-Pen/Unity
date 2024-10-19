@@ -12,8 +12,8 @@ public class moving_figure : MonoBehaviour
     public float minScale = 1f;           // 最小スケール
     public float maxScale = 1.5f;         // 最大スケール
 
-    public float minAmplitude = 2f;       // 振幅の最小値
-    public float maxAmplitude = 10f;      // 振幅の最大値
+    public float minAmplitude = 5f;       // 振幅の最小値
+    public float maxAmplitude = 20f;      // 振幅の最大値
 
     private float moveSpeed;              // 移動速度（ランダムに変更される）
     private float amplitude;              // 振幅（ランダムに変更される）

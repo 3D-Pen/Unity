@@ -9,7 +9,7 @@ public class LineConnect : MonoBehaviour
     public float lineWidth = 1.0f; // ラインの太さ
     public int lineEndMarker = 9999; // 線の終了を示すマーカー
     private Color randomColor;
-    public float positionRange = 100f;         // 位置のランダム範囲
+    public float positionRange = 200f;         // 位置のランダム範囲
     public Vector2 rotationRangeX = new Vector2(0, 360); // X軸の回転範囲
     public Vector2 rotationRangeY = new Vector2(0, 360); // Y軸の回転範囲
     public Vector2 rotationRangeZ = new Vector2(0, 360); // Z軸の回転範囲
