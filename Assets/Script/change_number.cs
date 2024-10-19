@@ -45,7 +45,7 @@ public class change_number : MonoBehaviour
         // Textコンポーネントにファイル数を表示
         if (fileCountText != null)
         {
-            fileCountText.text = "総登録モデル数: " + totalCsvFileCount.ToString();
+            fileCountText.text = "今日書いてくれた人: " + totalCsvFileCount.ToString()+"人";
         }
     }
 }

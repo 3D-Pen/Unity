@@ -6,7 +6,7 @@ public class LineConnect : MonoBehaviour
 {
     public string filePath;  // CSVファイルのパス
     public Material lineMaterial;  // ライン用のマテリアル
-    public float lineWidth = 1.0f; // ラインの太さ
+    public float lineWidth = 5.0f; // ラインの太さ
     public int lineEndMarker = 9999; // 線の終了を示すマーカー
     private Color randomColor;
     public float positionRange = 200f;         // 位置のランダム範囲
@@ -16,11 +16,11 @@ public class LineConnect : MonoBehaviour
 
     private static List<GameObject> createdObjects = new List<GameObject>();  // 生成されたオブジェクトを管理するリスト
     private static List<GameObject> parentObjects = new List<GameObject>();  // 親オブジェクトを管理するリスト
-    private int maxObjects = 10;  // 最大保持オブジェクト数
+    private int maxObjects = 5;  // 最大保持オブジェクト数
 
     public void Initialize()
     {
-        randomColor = Random.ColorHSV();
+        randomColor = Random.ColorHSV(0f, 1f, 0.8f, 1f, 0.8f, 1f);
         ReadCSVAndDrawLines();
         ChangePositionAndRotation();
     }
@@ -126,9 +126,9 @@ public class LineConnect : MonoBehaviour
     void ChangePositionAndRotation()
     {
         Vector3 randomPosition = new Vector3(
+            Random.Range(-positionRange-100, positionRange+100),
             Random.Range(-positionRange, positionRange),
-            Random.Range(-positionRange, positionRange),
-            Random.Range(-positionRange, positionRange)
+            Random.Range(-positionRange-100, positionRange+100)
         );
         transform.position = randomPosition;
 

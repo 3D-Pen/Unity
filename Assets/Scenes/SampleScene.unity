@@ -181,7 +181,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 2eda456efacd042d68395c6a66266029, type: 3}
-    m_FontSize: 100
+    m_FontSize: 60
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -398,9 +398,9 @@ MonoBehaviour:
   bgmClips:
   - {fileID: 8300000, guid: 72c44d78ef8ce4b56af75f574e0ee7af, type: 3}
   - {fileID: 8300000, guid: b81ce0f0301f844509e8b0eb79ead955, type: 3}
-  - {fileID: 8300000, guid: 578b9b04ddfce4adda05adb6004233f5, type: 3}
-  - {fileID: 8300000, guid: 9dad11159dc8a40acad891fbabb33518, type: 3}
   - {fileID: 8300000, guid: ea019ce63e5634e7f99e15511fd7febc, type: 3}
+  - {fileID: 8300000, guid: 9dad11159dc8a40acad891fbabb33518, type: 3}
+  - {fileID: 8300000, guid: 5876baf57314d498593b9a5cf35c5ced, type: 3}
   - {fileID: 8300000, guid: 42180c160cca84f92a238ef02a43bc9a, type: 3}
   skyboxMaterials:
   - {fileID: 2100000, guid: f531e09e2ad2fb440b4eed7605863143, type: 2}
@@ -607,7 +607,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -11, z: -400}
+  m_LocalPosition: {x: 0, y: -11, z: -600}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
