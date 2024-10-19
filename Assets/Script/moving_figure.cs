@@ -7,7 +7,7 @@ public class moving_figure : MonoBehaviour
     public float minMoveSpeed = 0.5f;     // 移動速度の最小値
     public float maxMoveSpeed = 2f;       // 移動速度の最大値
     public float minRotationSpeed = 30f;  // 回転速度の最小値
-    public float maxRotationSpeed = 100f; // 回転速度の最大値
+    public float maxRotationSpeed = 50f; // 回転速度の最大値
     public float scaleSpeed = 0.2f;       // スケール変化の速度
     public float minScale = 1f;           // 最小スケール
     public float maxScale = 1.5f;         // 最大スケール
