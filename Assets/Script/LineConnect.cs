@@ -8,7 +8,6 @@ public class LineConnect : MonoBehaviour
     public Material lineMaterial;  // ライン用のマテリアル
     public float lineWidth = 5.0f; // ラインの太さ
     public int lineEndMarker = 9999; // 線の終了を示すマーカー
-    private Color randomColor;
     public float positionRange = 200f;         // 位置のランダム範囲
     public Vector2 rotationRangeX = new Vector2(0, 360); // X軸の回転範囲
     public Vector2 rotationRangeY = new Vector2(0, 360); // Y軸の回転範囲
@@ -17,10 +16,30 @@ public class LineConnect : MonoBehaviour
     private static List<GameObject> createdObjects = new List<GameObject>();  // 生成されたオブジェクトを管理するリスト
     private static List<GameObject> parentObjects = new List<GameObject>();  // 親オブジェクトを管理するリスト
     private int maxObjects = 5;  // 最大保持オブジェクト数
+    private static int colorIndex = 0;  // 5色ローテーション用の色インデックス
+
+    // 5色のループ用カラーリスト
+    private Color[] colors = new Color[]
+    {
+        Color.red,
+        Color.green,
+        Color.blue,
+        Color.yellow,
+        Color.magenta
+    };
+
+    private Color currentColor; // 現在のオブジェクトの色
+
+    // Awakeメソッドでオブジェクトが生成されるたびに色を変える
+    void Awake()
+    {
+        // 現在の色をリストから取得し、インデックスを更新して次回は別の色を使用
+        currentColor = colors[colorIndex];
+        colorIndex = (colorIndex + 1) % colors.Length;  // 5色の間でローテーション
+    }
 
     public void Initialize()
     {
-        randomColor = Random.ColorHSV(0f, 1f, 0.8f, 1f, 0.8f, 1f);
         ReadCSVAndDrawLines();
         ChangePositionAndRotation();
     }
@@ -94,8 +113,8 @@ public class LineConnect : MonoBehaviour
             lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
         }
 
-        lineRenderer.startColor = randomColor;
-        lineRenderer.endColor = randomColor;
+        lineRenderer.startColor = currentColor;
+        lineRenderer.endColor = currentColor;
         lineRenderer.useWorldSpace = false;
 
         createdObjects.Add(lineSegment);
