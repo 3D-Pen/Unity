@@ -1,10 +1,13 @@
 using UnityEngine;
 using System.IO;
+using System.Collections.Generic;
 
 public class CSVWatcher : MonoBehaviour
 {
     private FileSystemWatcher watcher;
     public string folderToWatch;  // 監視するCSVファイルのフォルダ
+    private Dictionary<string, float> recentFiles = new Dictionary<string, float>();  // 最近処理されたファイルのリスト
+    public float debounceTime = 1f;  // 同じファイルに対するイベントの抑制時間（秒）
 
     void Start()
     {
@@ -35,9 +38,20 @@ public class CSVWatcher : MonoBehaviour
     // 新しいCSVファイルが追加された時の処理
     private void OnCSVFileAdded(object sender, FileSystemEventArgs e)
     {
-        Debug.Log($"CSVファイルが追加されました: {e.FullPath}");
+        string filePath = e.FullPath;
+
+        // 最近処理したファイルかどうかを確認し、指定の時間内であれば処理をスキップ
+        if (recentFiles.ContainsKey(filePath) && Time.time - recentFiles[filePath] < debounceTime)
+        {
+            Debug.LogWarning("同じファイルが短時間に検出されました: " + filePath);
+            return;
+        }
+
+        recentFiles[filePath] = Time.time;  // ファイルと現在の時刻を記録
+
+        Debug.Log($"CSVファイルが追加されました: {filePath}");
         // メインスレッドで処理を実行
-        UnityMainThreadDispatcher.Instance().Enqueue(() => LoadCSVAndCreateObject(e.FullPath));
+        UnityMainThreadDispatcher.Instance().Enqueue(() => LoadCSVAndCreateObject(filePath));
     }
 
     // CSVファイルを読み込んで新しいオブジェクトを作成
