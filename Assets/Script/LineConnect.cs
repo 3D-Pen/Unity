@@ -27,7 +27,6 @@ public class LineConnect : MonoBehaviour
         Color.yellow,
         Color.magenta,
         Color.cyan,
-        Color.grey,
         new Color(1.0f, 0.5f, 0.0f), // Orange
         new Color(1.0f, 0.75f, 0.8f), // Pink
         new Color(0.5f, 0.5f, 1.0f), // Light Blue
