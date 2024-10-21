@@ -16,16 +16,23 @@ public class LineConnect : MonoBehaviour
     private static List<GameObject> createdObjects = new List<GameObject>();  // 生成されたオブジェクトを管理するリスト
     private static List<GameObject> parentObjects = new List<GameObject>();  // 親オブジェクトを管理するリスト
     private int maxObjects = 5;  // 最大保持オブジェクト数
-    private static int colorIndex = 0;  // 5色ローテーション用の色インデックス
+    private static int colorIndex = 0;  // 色ローテーション用のインデックス
 
-    // 5色のループ用カラーリスト
+    // 色のループ用カラーリストを拡張
     private Color[] colors = new Color[]
     {
         Color.red,
         Color.green,
         Color.blue,
         Color.yellow,
-        Color.magenta
+        Color.magenta,
+        Color.cyan,
+        Color.grey,
+        new Color(1.0f, 0.5f, 0.0f), // Orange
+        new Color(1.0f, 0.75f, 0.8f), // Pink
+        new Color(0.5f, 0.5f, 1.0f), // Light Blue
+        new Color(0.5f, 1.0f, 0.5f), // Light Green
+        new Color(0.7f, 0.3f, 0.9f)  // Purple
     };
 
     private Color currentColor; // 現在のオブジェクトの色
@@ -35,7 +42,7 @@ public class LineConnect : MonoBehaviour
     {
         // 現在の色をリストから取得し、インデックスを更新して次回は別の色を使用
         currentColor = colors[colorIndex];
-        colorIndex = (colorIndex + 1) % colors.Length;  // 5色の間でローテーション
+        colorIndex = (colorIndex + 1) % colors.Length;  // 色リストの中でローテーション
     }
 
     public void Initialize()
