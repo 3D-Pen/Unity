@@ -105,11 +105,15 @@ public class LineConnect : MonoBehaviour
 
         LineRenderer lineRenderer = lineSegment.AddComponent<LineRenderer>();
 
+        // 頂点数と補間
         lineRenderer.positionCount = points.Count;
         lineRenderer.SetPositions(points.ToArray());
+
+        // 線の太さを設定
         lineRenderer.startWidth = lineWidth;
         lineRenderer.endWidth = lineWidth;
 
+        // マテリアルの設定
         if (lineMaterial != null)
         {
             lineRenderer.material = lineMaterial;
@@ -119,8 +123,13 @@ public class LineConnect : MonoBehaviour
             lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
         }
 
+        // 線の色の設定
         lineRenderer.startColor = currentColor;
         lineRenderer.endColor = currentColor;
+
+        // ラインを滑らかにする設定
+        lineRenderer.numCapVertices = 10;  // 丸みのあるキャップを追加
+        lineRenderer.numCornerVertices = 10; // コーナーを滑らかにする
         lineRenderer.useWorldSpace = false;
 
         createdObjects.Add(lineSegment);
@@ -151,9 +160,9 @@ public class LineConnect : MonoBehaviour
     void ChangePositionAndRotation()
     {
         Vector3 randomPosition = new Vector3(
-            Random.Range(-positionRange-100, positionRange+100),
+            Random.Range(-positionRange - 100, positionRange + 100),
             Random.Range(-positionRange, positionRange),
-            Random.Range(-positionRange-100, positionRange+100)
+            Random.Range(-positionRange - 100, positionRange + 100)
         );
         transform.position = randomPosition;
 
