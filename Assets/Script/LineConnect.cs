@@ -104,7 +104,7 @@ public class LineConnect : MonoBehaviour
 
         LineRenderer lineRenderer = lineSegment.AddComponent<LineRenderer>();
 
-        List<Vector3> smoothPoints = InterpolateCatmullRom(points, 10); // Catmull-Rom補間
+        List<Vector3> smoothPoints = InterpolateCatmullRom(points, 20); // Catmull-Rom補間
 
         lineRenderer.positionCount = smoothPoints.Count;
         lineRenderer.SetPositions(smoothPoints.ToArray());
