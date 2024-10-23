@@ -39,7 +39,6 @@ public class LineConnect : MonoBehaviour
     // Awakeメソッドでオブジェクトが生成されるたびに色を変える
     void Awake()
     {
-        // 現在の色をリストから取得し、インデックスを更新して次回は別の色を使用
         currentColor = colors[colorIndex];
         colorIndex = (colorIndex + 1) % colors.Length;  // 色リストの中でローテーション
     }
@@ -105,8 +104,10 @@ public class LineConnect : MonoBehaviour
 
         LineRenderer lineRenderer = lineSegment.AddComponent<LineRenderer>();
 
-        lineRenderer.positionCount = points.Count;
-        lineRenderer.SetPositions(points.ToArray());
+        List<Vector3> smoothPoints = InterpolateCatmullRom(points, 10); // Catmull-Rom補間
+
+        lineRenderer.positionCount = smoothPoints.Count;
+        lineRenderer.SetPositions(smoothPoints.ToArray());
         lineRenderer.startWidth = lineWidth;
         lineRenderer.endWidth = lineWidth;
 
@@ -163,5 +164,42 @@ public class LineConnect : MonoBehaviour
             Random.Range(rotationRangeZ.x, rotationRangeZ.y)
         );
         transform.rotation = randomRotation;
+    }
+
+    // Catmull-Romスプライン補間
+    Vector3 CatmullRom(Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3, float t)
+    {
+        float t2 = t * t;
+        float t3 = t2 * t;
+
+        return 0.5f * (
+            (2.0f * p1) +
+            (-p0 + p2) * t +
+            (2.0f * p0 - 5.0f * p1 + 4.0f * p2 - p3) * t2 +
+            (-p0 + 3.0f * p1 - 3.0f * p2 + p3) * t3
+        );
+    }
+
+    // Catmull-Romスプライン補間を用いて滑らかな点を生成
+    List<Vector3> InterpolateCatmullRom(List<Vector3> points, int segmentsPerCurve)
+    {
+        List<Vector3> smoothPoints = new List<Vector3>();
+
+        for (int i = 0; i < points.Count - 1; i++)
+        {
+            Vector3 p0 = (i == 0) ? points[i] : points[i - 1];
+            Vector3 p1 = points[i];
+            Vector3 p2 = points[i + 1];
+            Vector3 p3 = (i + 2 < points.Count) ? points[i + 2] : points[i + 1];
+
+            for (int j = 0; j <= segmentsPerCurve; j++)
+            {
+                float t = j / (float)segmentsPerCurve;
+                Vector3 interpolatedPoint = CatmullRom(p0, p1, p2, p3, t);
+                smoothPoints.Add(interpolatedPoint);
+            }
+        }
+
+        return smoothPoints;
     }
 }
