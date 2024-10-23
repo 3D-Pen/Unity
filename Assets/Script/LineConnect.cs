@@ -6,7 +6,7 @@ public class LineConnect : MonoBehaviour
 {
     public string filePath;  // CSVファイルのパス
     public Material lineMaterial;  // ライン用のマテリアル
-    public float lineWidth = 8f; // ラインの太さ
+    public float lineWidth = 5f; // ラインの太さ
     public int lineEndMarker = 9999; // 線の終了を示すマーカー
     public float positionRange = 200f;         // 位置のランダム範囲
     public Vector2 rotationRangeX = new Vector2(0, 360); // X軸の回転範囲

@@ -35,11 +35,6 @@ public class CSVWatcher : MonoBehaviour
     // 新しいCSVファイルが追加された時の処理
     private void OnCSVFileAdded(object sender, FileSystemEventArgs e)
     {
-        // ファイルがまだ使用中の場合は待機
-        while (!IsFileReady(e.FullPath))
-        {
-            System.Threading.Thread.Sleep(100);
-        }
         Debug.Log($"CSVファイルが追加されました: {e.FullPath}");
         // メインスレッドで処理を実行
         UnityMainThreadDispatcher.Instance().Enqueue(() => LoadCSVAndCreateObject(e.FullPath));
@@ -55,20 +50,6 @@ public class CSVWatcher : MonoBehaviour
         lineConnect.Initialize(); // CSVからラインを描画するための初期化メソッドを呼び出す
     }
 
-private bool IsFileReady(string filePath)
-{
-    try
-    {
-        using (FileStream stream = File.Open(filePath, FileMode.Open, FileAccess.Read, FileShare.None))
-        {
-            return stream.Length > 0;
-        }
-    }
-    catch (IOException)
-    {
-        return false; // ファイルがまだ使用中またはロックされている
-    }
-}
     void OnDestroy()
     {
         // 監視を停止する
